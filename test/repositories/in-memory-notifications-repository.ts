@@ -1,5 +1,6 @@
 import { Notification } from '@application/entities/notification';
 import { NotificationsRepository } from '@application/repositories/notifications-repository';
+import { NotificationNotFound } from '@application/use-cases/errors/notification-not-found-error';
 
 export class InMemoryNotificationsRepository
   implements NotificationsRepository
@@ -10,7 +11,23 @@ export class InMemoryNotificationsRepository
     this.notifications.push(notification);
   }
 
-  findById(notificationId: string): Promise<Notification | null> {
-    throw new Error('Method not implemented.');
+  async findById(notificationId: string): Promise<Notification | null> {
+    const notification = this.notifications.find(
+      (not) => not.id === notificationId,
+    );
+
+    if (!notification) return null;
+
+    return notification;
+  }
+
+  async save(notification: Notification): Promise<void> {
+    const notificationIndex = this.notifications.findIndex(
+      (not) => not.id === notification.id,
+    );
+
+    if (notificationIndex >= 0) {
+      this.notifications[notificationIndex] = notification;
+    }
   }
 }
