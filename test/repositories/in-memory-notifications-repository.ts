@@ -1,6 +1,5 @@
 import { Notification } from '@application/entities/notification';
 import { NotificationsRepository } from '@application/repositories/notifications-repository';
-import { NotificationNotFound } from '@application/use-cases/errors/notification-not-found-error';
 
 export class InMemoryNotificationsRepository
   implements NotificationsRepository
@@ -19,6 +18,11 @@ export class InMemoryNotificationsRepository
     if (!notification) return null;
 
     return notification;
+  }
+
+  async countManyByRecipientId(recipientId: string): Promise<number> {
+    return this.notifications.filter((not) => not.recipientId === recipientId)
+      .length;
   }
 
   async save(notification: Notification): Promise<void> {
