@@ -2,7 +2,7 @@ import { Content } from '@application/entities/content';
 import { Notification } from '@application/entities/notification';
 import { Notification as RawNotification } from '@prisma/client';
 
-export class PrismaNotifciationMapper {
+export class PrismaNotificationMapper {
   static toPrisma(notification: Notification) {
     return {
       id: notification.id,
