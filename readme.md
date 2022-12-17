@@ -34,7 +34,7 @@ cd https://github.com/Gabriek0/lab-node.git
 yarn
 
 # Rode o projeto
-yarn dev
+yarn start
 
 ```
 
